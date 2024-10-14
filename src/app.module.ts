@@ -4,10 +4,11 @@ import { AppService } from './app.service';
 import { PostsModule } from './posts/posts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostsModel } from './posts/entities/posts.entity';
+import { UsersModule } from './users/users.module';
+import { UsersModel } from './users/entities/users.entity';
 
 @Module({
   imports: [
-    PostsModule,
     TypeOrmModule.forRoot({
       // 데이터베이스 타입
       type: 'postgres',
@@ -16,9 +17,11 @@ import { PostsModel } from './posts/entities/posts.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [PostsModel],
+      entities: [PostsModel, UsersModel],
       synchronize: true,
     }),
+    PostsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
