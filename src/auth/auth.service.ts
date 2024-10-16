@@ -65,12 +65,6 @@ export class AuthService {
   async authenticateWithEmailAndPassword(
     user: Pick<UsersModel, 'email' | 'password'>,
   ) {
-    /**
-     *1. 사용자가 존재하는지 확인(email)
-     *2. 비밀번호가 맞는지 확인
-     *3. 모두 통과되면 찾은 사용자 정보 반환
-     */
-
     const existingUser = await this.usersService.getUserByEmail(user.email);
 
     if (!existingUser) {
@@ -84,5 +78,11 @@ export class AuthService {
     }
 
     return existingUser;
+  }
+
+  async loginWithEmail(user: Pick<UsersModel, 'email' | 'password'>) {
+    const existingUser = await this.authenticateWithEmailAndPassword(user);
+
+    return this.loginUser(existingUser);
   }
 }
