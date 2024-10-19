@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   NotFoundException,
@@ -25,11 +26,14 @@ export class PostsController {
     return this.postsService.getPostById(id);
   }
 
+  // 3) POST /posts
+  //    POST를 생성한다.
   @Post()
   postPosts(
     @Body('authorId') authorId: number,
     @Body('title') title: string,
     @Body('content') content: string,
+    @Body('isPublic', new DefaultValuePipe(true)) isPublic: boolean,
   ) {
     return this.postsService.createPost(authorId, title, content);
   }
