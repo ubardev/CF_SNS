@@ -9,4 +9,13 @@ export class UsersController {
   getUsers() {
     return this.usersService.getAllUsers();
   }
+
+  @Post()
+  postUser(
+    @Body('nickname') nickname: string,
+    @Body('email') email: string,
+    @Body('password') password,
+  ) {
+    return this.usersService.createUser({ nickname, email, password });
+  }
 }
