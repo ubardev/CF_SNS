@@ -10,6 +10,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostsModel } from './entities/posts.entity';
+import { CreatePostDto } from './dto/create-post.dot';
 
 @Injectable()
 export class PostsService {
@@ -37,11 +38,10 @@ export class PostsService {
     return post;
   }
 
-  async createPost(authorId: number, title: string, content: string) {
+  async createPost(authorId: number, postDto: CreatePostDto) {
     const post = this.postsRepository.create({
       author: { id: authorId },
-      title,
-      content,
+      ...postDto,
       likeCount: 0,
       commentCount: 0,
     });
