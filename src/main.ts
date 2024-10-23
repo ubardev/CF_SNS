@@ -8,6 +8,9 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true, // 요청에서 넘어온 자료들을 원하는 실제 타입으로 변환
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
