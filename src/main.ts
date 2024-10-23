@@ -5,7 +5,11 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // 요청에서 넘어온 자료들을 원하는 실제 타입으로 변환
+    }),
+  );
 
   await app.listen(3000);
 }

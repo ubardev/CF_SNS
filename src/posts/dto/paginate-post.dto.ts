@@ -9,7 +9,7 @@ export class PaginatePostDto {
 
   // 정렬
   // createdAt -> 생성된 시간의 내림차 / 오름차 순으로 정렬
-  @IsIn(['ACS'])
+  @IsIn(['ASC'])
   @IsOptional()
   order__created_at?: 'ASC' = 'ASC';
 
