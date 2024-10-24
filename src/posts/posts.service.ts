@@ -42,7 +42,12 @@ export class PostsService {
 
   // 1) 오름차 순으로 정렬하는 pagination만 구현한다
   async paginatePosts(dto: PaginatePostDto) {
-    return this.commonService.paginate(dto, this.postsRepository, {}, 'posts');
+    return this.commonService.paginate(
+      dto,
+      this.postsRepository,
+      { relations: ['author'] },
+      'posts',
+    );
     // if (dto.page) {
     //   return this.pagePaginatePosts(dto);
     // } else {
