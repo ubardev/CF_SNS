@@ -15,12 +15,14 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PaginatePostDto } from './dto/paginate-post.dto';
 import { after } from 'node:test';
 import { HOST, PROTOCAOL } from 'src/common/const/env.const';
+import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(PostsModel)
     private readonly postsRepository: Repository<PostsModel>,
+    private readonly commonService: CommonService,
   ) {}
 
   async getAllPosts() {
@@ -40,11 +42,12 @@ export class PostsService {
 
   // 1) 오름차 순으로 정렬하는 pagination만 구현한다
   async paginatePosts(dto: PaginatePostDto) {
-    if (dto.page) {
-      return this.pagePaginatePosts(dto);
-    } else {
-      return this.cursorPaginatePosts(dto);
-    }
+    return this.commonService.paginate(dto, this.postsRepository, {}, 'posts');
+    // if (dto.page) {
+    //   return this.pagePaginatePosts(dto);
+    // } else {
+    //   return this.cursorPaginatePosts(dto);
+    // }
   }
 
   async pagePaginatePosts(dto: PaginatePostDto) {
@@ -57,7 +60,7 @@ export class PostsService {
       skip: dto.take * (dto.page - 1),
       take: dto.take,
       order: {
-        createdAt: dto.order__created_at,
+        createdAt: dto.order__createdAt,
       },
     });
 
@@ -81,7 +84,7 @@ export class PostsService {
       where,
       // order__createdAt
       order: {
-        createdAt: dto.order__created_at,
+        createdAt: dto.order__createdAt,
       },
       take: dto.take,
     });
@@ -116,7 +119,7 @@ export class PostsService {
 
       let key = null;
 
-      if (dto.order__created_at === 'ASC') {
+      if (dto.order__createdAt === 'ASC') {
         key = 'where__id__more_than';
       } else {
         key = 'where__id__less_than';
