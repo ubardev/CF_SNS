@@ -8,5 +8,5 @@ export class PaginatePostDto extends BasePaginationDto {
 
   @IsString()
   @IsOptional()
-  where__title_i_like: string;
+  where__title__i_like: string;
 }
