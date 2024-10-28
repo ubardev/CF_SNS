@@ -47,7 +47,6 @@ export class AuthService {
    * {authorization: 'Basic {token}'}
    * {authorization: 'Bearer {token}'}
    */
-
   extractTokenFromHeader(header: string, isBearer: boolean) {
     const splitToken = header.split(' ');
     const prefix = isBearer ? 'Bearer' : 'Basic';
