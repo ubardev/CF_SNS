@@ -52,14 +52,9 @@ export class PostsController {
   //    POST를 생성한다.
   // DTO - Data Transfer Object
   @Post()
-  @UseInterceptors(FileInterceptor('image'))
   @UseGuards(AccessTokenGuard)
-  postPosts(
-    @User('id') userId: number,
-    @Body() body: CreatePostDto,
-    @UploadedFile() file?: Express.Multer.File,
-  ) {
-    return this.postsService.createPost(userId, body, file?.filename);
+  postPosts(@User('id') userId: number, @Body() body: CreatePostDto) {
+    return this.postsService.createPost(userId, body);
   }
 
   @Patch(':id')
