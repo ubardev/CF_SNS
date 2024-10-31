@@ -6,7 +6,7 @@ import { CreatePostImageDto } from './dto/create-image.dto';
 import { basename, join } from 'path';
 import { POST_IMAGE_PATH, TEMP_FOLDER_PATH } from 'src/common/const/path.const';
 import { promises } from 'fs';
-import { PostsModel } from '../entities/posts.entity';
+import { PostsModel } from '../entity/posts.entity';
 
 @Injectable()
 export class PostsImagesService {

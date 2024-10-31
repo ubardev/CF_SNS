@@ -11,7 +11,7 @@ import {
   QueryRunner,
   Repository,
 } from 'typeorm';
-import { PostsModel } from './entities/posts.entity';
+import { PostsModel } from './entity/posts.entity';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PaginatePostDto } from './dto/paginate-post.dto';
