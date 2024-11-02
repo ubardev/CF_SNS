@@ -250,4 +250,8 @@ export class PostsService {
 
     return postId;
   }
+
+  async checkPostExistId(id: number) {
+    return this.postsRepository.findOne({ where: { id } });
+  }
 }
