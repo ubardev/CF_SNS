@@ -29,6 +29,8 @@ import { LogInterceptor } from 'src/common/interceptor/log.interceptor';
 import { TransactionInterceptor } from 'src/common/interceptor/transaction.intercaptor';
 import { QueryRunner } from 'src/common/decorator/query-runner.decorator';
 import { HttpExceptionFilter } from 'src/common/exception-filter/http.exception-filter';
+import { Roles } from 'src/users/decorator/roles.decorator';
+import { RolesEnum } from 'src/users/const/roles.const';
 
 @Controller('posts')
 export class PostsController {
@@ -115,8 +117,14 @@ export class PostsController {
     return this.postsService.updatePost(id, body);
   }
 
+  // 5) DELETE /posts/:id
+  //    id에 해당되는 POST를 삭제한다.
   @Delete(':id')
+  @UseGuards(AccessTokenGuard)
+  @Roles(RolesEnum.ADMIN)
   deletePost(@Param('id', ParseIntPipe) id: number) {
     return this.postsService.deletePost(id);
   }
+
+  // RBAC -> Role Based Access Control
 }
