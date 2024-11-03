@@ -14,7 +14,7 @@ import { UsersModule } from './users/users.module';
 import { UsersModel } from './users/entity/users.entity';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import {
   ENV_DB_DATABASE_KEY,
@@ -29,6 +29,7 @@ import { ImageModel } from './common/entity/image.entity';
 import { LogMiddleware } from './common/middleware/log.middleware';
 import { CommentsModule } from './posts/comments/comments.module';
 import { CommentsModel } from './posts/comments/entity/comments.entity';
+import { RolesGuard } from './users/guard/roles.guard';
 
 @Module({
   imports: [
@@ -63,6 +64,10 @@ import { CommentsModel } from './posts/comments/entity/comments.entity';
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })
