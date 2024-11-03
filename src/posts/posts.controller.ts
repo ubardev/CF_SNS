@@ -52,7 +52,6 @@ export class PostsController {
 
   // POST /posts/random
   @Post('random')
-  @UseGuards(AccessTokenGuard)
   async postPostsRandom(@User() user: UsersModel) {
     await this.postsService.generatePosts(user.id);
     return true;
@@ -83,7 +82,6 @@ export class PostsController {
   // start -> 시작
   // commit -> 저장
   @Post()
-  @UseGuards(AccessTokenGuard)
   @UseInterceptors(TransactionInterceptor)
   async postPosts(
     @User('id') userId: number,
