@@ -36,6 +36,12 @@ export class IsPostMineOrAdminGuard implements CanActivate {
       throw new BadRequestException('Post ID가 파라미터로 제공돼야합니다.');
     }
 
-    return this.postService.isPostMine(user.id, parseInt(postId));
+    const isOk = await this.postService.isPostMine(user.id, parseInt(postId));
+
+    if (!isOk) {
+      throw new UnauthorizedException('권한이 없습니다.');
+    }
+
+    return true;
   }
 }
