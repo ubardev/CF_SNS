@@ -8,10 +8,12 @@ import {
 import { RolesEnum } from 'src/users/const/roles.const';
 import { PostsService } from '../posts.service';
 import { UsersModel } from 'src/users/entity/users.entity';
+import { Request } from 'express';
 
 @Injectable()
 export class IsPostMineOrAdminGuard implements CanActivate {
   constructor(private readonly postService: PostsService) {}
+
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest() as Request & {
       user: UsersModel;
@@ -30,7 +32,7 @@ export class IsPostMineOrAdminGuard implements CanActivate {
       return true;
     }
 
-    const postId = (req as any).params.postId;
+    const postId = req.params.postId;
 
     if (!postId) {
       throw new BadRequestException('Post ID가 파라미터로 제공돼야합니다.');
