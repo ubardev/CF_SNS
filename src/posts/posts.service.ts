@@ -254,4 +254,18 @@ export class PostsService {
   async checkPostExistId(id: number) {
     return this.postsRepository.findOne({ where: { id } });
   }
+
+  async isPostMine(userId: number, postId: number) {
+    return this.postsRepository.exists({
+      where: {
+        id: postId,
+        author: {
+          id: userId,
+        },
+      },
+      relations: {
+        author: true,
+      },
+    });
+  }
 }
